@@ -13,11 +13,11 @@ function createPitchClass(aContext) {
     };
 
     Pitch.prototype.start = function() {
-	this.theOscillator.start(0);
+	this.theOscillator.noteOn(0);
     };
 
     Pitch.prototype.stop = function() {
-	this.theOscillator.stop(0);
+	this.theOscillator.noteOff(0);
 	this.theOscillator.disconnect();
     };
 
@@ -84,7 +84,7 @@ function createNoteClass(aContext) {
     function Note(aFrequency) {
 	this.thePitch = new Pitch(aFrequency);
 	this.theVolume = new Volume();
-	this.theEnvelope = new Envelope(0.05, 1.5, 5);
+	this.theEnvelope = new Envelope(0.05, 0.5, 5);
 	this.thePitch.connect(this.theVolume);
 	this.theEnvelope.connect(this.theVolume.theAmplitude);
 	this.theVolume.connect(aContext.destination);

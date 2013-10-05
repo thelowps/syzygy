@@ -12,9 +12,9 @@ var RADII_NOTES = {
 var timeKeeper = {
     time: 0,
     offset: 0,
-    speed: 0.10,
-    minSubdivision: 32,
-    minUnit: 1/32,
+    speed: 0.20,
+    minSubdivision: 16,
+    minUnit: 1/16,
     
     tick: function (delta) {
 	this.time += delta*this.speed
@@ -71,22 +71,33 @@ function Asteroid (A) {
     this.frequency = RADII_NOTES[orbitRadius]
     this.note = new Note (this.frequency)
     this.note.start()
-
-    console.log("radius = " + A.orbitRadius)
+    
+    this.hue = this.shape.fillColor.hue
     
     // relocate
     // Places the asteroid in the correct place in its orbit, according to its t value
-    this.relocate = function () {
+    this.tick = function () {
 	this.prevT = this.t
 	this.t = timeKeeper.time + this.initialT
 	if (this.prevT < 1 && this.t >= 1) {
-	    console.log("PLAYING: " + this.t)
-	    this.note.play()
+	    this.play()
 	}
+	if (this.shape.fillColor.hue !== this.hue) {
+	    var dist = this.shape.fillColor.hue - this.hue
+	    this.shape.fillColor.hue -= dist/10
+	}
+
 	var myT = this.t
 	while(myT >= 1.0) {myT -= 1}
 	this.loc = this.orbit.getPointAt(myT*this.orbit.length)
 	this.shape.position = this.loc
+    }
+
+    // play 
+    // Plays the note and changes the color
+    this.play = function () {
+	this.note.play()
+	this.shape.fillColor = 'red'
     }
 }
 
@@ -121,6 +132,14 @@ function onFrame (e) {
     timeKeeper.tick(e.delta)
     for (var i = 0; i < ALL_ASTEROIDS.length; ++i) {
 	var ast = ALL_ASTEROIDS[i]
-	ast.relocate()
+	ast.tick()
+    }
+}
+
+function onKeyDown (e) {
+    if (e.key == 'w') {
+	timeKeeper.speed+=0.15
+    } else if (e.key == 'r') {
+	timeKeeper.speed-=0.15
     }
 }
