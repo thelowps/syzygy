@@ -13,7 +13,7 @@ $(document).ready(function () {
     myCanvas.width = window.innerWidth;
     myCanvas.height = window.innerHeight;
     var touchHandler = function (e) {
-	myNote.play();
+	//myNote.play();
     }
 
     myCanvas.addEventListener("touchstart", touchHandler, false)
