@@ -21,7 +21,8 @@ function simpleTone() {
     	myOscillator.connect(myGain)
     	myGain.connect(theContext.destination)
 
-	myGain.gain.value = 5
+	//myGain.gain.value = 5
+	console.log(myGain.gain.value)
     	myOscillator.noteOn(0)
     }
 }
