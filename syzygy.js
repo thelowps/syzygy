@@ -21,7 +21,8 @@ $(document).ready(function () {
 
     var touchHandler = function (e) {
 	alert("Hello!")
-	simpleTone()
+	simpleTone(200, 3, 5)
+	simpleTone(87, 2, 5)
     }
 
     myCanvas.addEventListener("touchstart", touchHandler, false)
