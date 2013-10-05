@@ -13,11 +13,11 @@ function Asteroid (A) {
 $(document).ready(function () {
     
     var myCanvas = document.getElementById("main_canvas")
+    myCanvas.width = window.innerWidth;
+    myCanvas.height = window.innerHeight;
     var myCtx = myCanvas.getContext('2d')    
     
-    drawPlanet(myCtx, 40, 40, 30)
     initializeAudio()
-    //simpleTone()
 
     var touchHandler = function (e) {
 	alert("Hello!")
