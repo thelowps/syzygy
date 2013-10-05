@@ -6,7 +6,13 @@ var RADII_NOTES = {
     300: 164.81,
     400: 196.00,
     500: 220.00,
-    600: 261.63
+    600: 261.63,
+    700: 523.25,
+    800: 587.33,
+    900: 659.26,
+    1000: 783.99,
+    1100: 880.00,
+    1200: 1046.5
 }
 
 var timeKeeper = {
@@ -34,7 +40,7 @@ var timeKeeper = {
 
 function radiusToFrequency (rad) {
     var hundred = Math.round(rad/100)
-    if (hundred > 6) hundred = 6
+    if (hundred > 12) hundred = 12
     if (hundred < 1) hundred = 1
     r = hundred*100
     return RADII_NOTES
@@ -45,7 +51,7 @@ function Asteroid (A) {
     A = A || {}
 
     var hundred = Math.round(A.orbitRadius/100)
-    if (hundred > 6) hundred = 6
+    if (hundred > 12) hundred = 12
     if (hundred < 1) hundred = 1
     var orbitRadius = hundred*100
     this.orbit = new Path.Ellipse({
@@ -138,8 +144,10 @@ function onFrame (e) {
 
 function onKeyDown (e) {
     if (e.key == 'w') {
-	timeKeeper.speed+=0.15
+	timeKeeper.speed+=0.1
     } else if (e.key == 'r') {
-	timeKeeper.speed-=0.15
+	timeKeeper.speed-=0.1
+	if(timeKeeper.speed < 0)
+	    timeKeeper.speed = 0;
     }
 }

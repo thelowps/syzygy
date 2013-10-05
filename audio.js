@@ -6,7 +6,7 @@ var Note;
 function createPitchClass(aContext) {
     function Pitch(aFrequency){
 	this.theOscillator = aContext.createOscillator();
-	this.theOscillator.type = this.theOscillator.SINE;
+	this.theOscillator.type = this.theOscillator.TRIANGLE;
 	this.theOscillator.frequency.value = aFrequency;
 	this.theInput = this.theOscillator;
 	this.theOutput = this.theOscillator;
@@ -69,7 +69,9 @@ function createEnvelopeClass(aContext) {
     	    this.theModulate.cancelScheduledValues(myCurrTime);
     	    this.theModulate.setValueAtTime(0, myCurrTime);
     	    this.theModulate.linearRampToValueAtTime(this.theMax, myCurrTime + this.theUp);
-    	    this.theModulate.linearRampToValueAtTime(0, myCurrTime + this.theUp + this.theDown);
+    	    this.theModulate.linearRampToValueAtTime(this.theMax *0.3, myCurrTime + this.theUp*2);
+    	    this.theModulate.linearRampToValueAtTime(this.theMax *0.3, myCurrTime + this.theUp*3);
+    	    this.theModulate.linearRampToValueAtTime(0, myCurrTime + this.theUp*4);
 	}
     }
 
@@ -84,7 +86,7 @@ function createNoteClass(aContext) {
     function Note(aFrequency) {
 	this.thePitch = new Pitch(aFrequency);
 	this.theVolume = new Volume();
-	this.theEnvelope = new Envelope(0.05, 0.5, 5);
+	this.theEnvelope = new Envelope(0.05, 0.5, 1);
 	this.thePitch.connect(this.theVolume);
 	this.theEnvelope.connect(this.theVolume.theAmplitude);
 	this.theVolume.connect(aContext.destination);
