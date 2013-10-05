@@ -1,4 +1,6 @@
 var theContext
+var theOscillator
+var thePlaying = false
 
 function initializeAudio() {
     try {
@@ -10,19 +12,27 @@ function initializeAudio() {
     }
 }
 
-function simpleTone(aFrequency, aType, aGain) {
-    if(theContext) {
-	console.log("Playing tone.");
+function simpleToneStart(aFrequency, aType, aGain) {
+    if(theContext && !thePlaying) {
 	myGain = theContext.createGainNode()
-    	myOscillator = theContext.createOscillator()
+    	theOscillator = theContext.createOscillator()
 
-    	myOscillator.frequency.value = aFrequency
-	myOscillator.type = aType
+    	theOscillator.frequency.value = aFrequency
+	theOscillator.type = aType
 
-    	myOscillator.connect(myGain)
+    	theOscillator.connect(myGain)
     	myGain.connect(theContext.destination)
 
 	myGain.gain.value = aGain
-    	myOscillator.noteOn(0)
+    	theOscillator.noteOn(0)
+	thePlaying = true
+    }
+}
+
+function simpleToneStop() {
+    if(theContext && thePlaying) {
+	theOscillator.noteOff(0);
+	theOscillator.disconnect();
+	thePlaying = false
     }
 }
