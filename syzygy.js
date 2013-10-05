@@ -11,8 +11,14 @@ function Asteroid (A) {
 }
 
 $(document).ready(function () {
-    var myCtx = document.getElementById("main_canvas").getContext('2d')
+    
+    var myCanvas = document.getElementById("main_canvas")
+    var myCtx = myCanvas.getContext('2d')    
+    
     drawPlanet(myCtx, 40, 40, 30)
     initializeAudio();
-    simpleTone();
+    //simpleTone();
+
+    myCanvas.addEventListener("touchstart", simpleTone, false)
+
 })
