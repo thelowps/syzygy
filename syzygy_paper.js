@@ -35,24 +35,22 @@ function Asteroid (A) {
     }
 }
 
-var ast = new Asteroid ({
-    orbitCenter: view.center,
-    orbitRadius: 100,
-    speed: 1
-})
 
-var ast2 = new Asteroid ({
-    orbitCenter: view.center,
-    orbitRadius: 150,
-    speed: 1
-})
+ALL_ASTEROIDS = []
 
-
-function onFrame (e) {
-    ast.move(e.delta)
-    ast2.move(e.delta)
+function onMouseUp (e) {
+    var radius = (e.point-view.center).length*2
+    var speed = (e.lastPoint-e.point).length
+    ALL_ASTEROIDS.push(new Asteroid({
+	orbitCenter: view.center,
+	orbitRadius: (e.point - view.center).length*2,
+	speed: 1
+    }))
 }
 
-function onResize (e) {
-    layer.position = view.center
+function onFrame (e) {
+    for (var i = 0; i < ALL_ASTEROIDS.length; ++i) {
+	var ast = ALL_ASTEROIDS[i]
+	ast.move(e.delta)
+    }
 }
