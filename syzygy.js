@@ -16,9 +16,15 @@ $(document).ready(function () {
     var myCtx = myCanvas.getContext('2d')    
     
     drawPlanet(myCtx, 40, 40, 30)
-    initializeAudio();
-    //simpleTone();
+    initializeAudio()
+    //simpleTone()
 
-    myCanvas.addEventListener("touchstart", simpleTone, false)
+    var touchHandler = function (e) {
+	alert("Hello!")
+	simpleTone()
+    }
+
+    myCanvas.addEventListener("touchstart", touchHandler, false)
+    myCanvas.addEventListener("click", touchHandler, false)
 
 })
