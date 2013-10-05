@@ -17,13 +17,10 @@ $(document).ready(function () {
     
     drawPlanet(myCtx, 40, 40, 30)
     initializeAudio()
-    //simpleTone()
-
+    var myNote = new Note(440);
+    myNote.start();
     var touchHandler = function (e) {
-	if(!thePlaying)
-	    simpleToneStart(200, 3, 5)
-	else
-	    simpleToneStop();
+	myNote.play();
     }
 
     myCanvas.addEventListener("touchstart", touchHandler, false)
