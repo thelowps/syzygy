@@ -20,8 +20,10 @@ $(document).ready(function () {
     initializeAudio()
 
     var touchHandler = function (e) {
-	alert("Hello!")
-	simpleTone()
+	if(!thePlaying)
+	    simpleToneStart(200, 3, 5)
+	else
+	    simpleToneStop();
     }
 
     myCanvas.addEventListener("touchstart", touchHandler, false)
