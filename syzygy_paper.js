@@ -127,13 +127,6 @@ function onMouseUp (e) {
     ALL_ASTEROIDS.push( createAsteroid(e) )
 }
 
-ALL_ASTEROIDS.push( new Asteroid({
-    orbitCenter: view.center,
-    orbitRadius: 100,
-    speed: 1,
-    loc: new Point(100,0)
-}))
-
 function onFrame (e) {
     timeKeeper.tick(e.delta)
     for (var i = 0; i < ALL_ASTEROIDS.length; ++i) {
@@ -145,7 +138,7 @@ function onFrame (e) {
 function onKeyDown (e) {
     if (e.key == 'w') {
 	timeKeeper.speed+=0.1
-    } else if (e.key == 'r') {
+    } else if (e.key == 's') {
 	timeKeeper.speed-=0.1
 	if(timeKeeper.speed < 0)
 	    timeKeeper.speed = 0;
